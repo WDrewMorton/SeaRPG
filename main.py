@@ -22,11 +22,12 @@ def get_hurt(character):
         damage = random.randint(0, 20)
         character.health = character.health - damage
 
-
-print("display")
 m.display()
-print("create map")
 m.create_map()
+### FOR TESTING ONLY ###
+print("display")
+print("create map")
+### FOR TESTING ONLY ###
 
 # while p.health > 0: # and p.position not "X":
 #     p.attack()
@@ -43,7 +44,7 @@ def make_move():
     directions = {"l": (0, -1), "r": (0, 1), "u": (-1, 0), "d": (1, 0)}
     while True:
         try:
-            move_input = input("Which way will you go? (u, d, l, r): ").strip()
+            move_input = input("Which way will you go? (u, d, l, r): ").lower().strip()
         except ValueError:
             print("Sorry, I didn't understand that.")
             continue
@@ -78,8 +79,9 @@ def combat(p, mob):
                 p.ap = int(.10 * p.ap_max)
             else:
                 print("Too tired to fight GET FUCKED")
-
-    p.ap = p.ap_max
+### FOR TESTING ONLY ###
+    # p.ap = p.ap_max
+### FOR TESTING ONLY ###
 
 
 def check_level_up():
@@ -88,9 +90,18 @@ def check_level_up():
         p.exp -= 100
 
 
+'''
+so i want to increase by 10% of missing ap
+3/100
+10% of 7 is .7 so that would increase by 1
+for now we'll just increase by 1 for every step you take that's not fighting
+'''
 def restore_ap():
     if p.ap < p.ap_max:
-        p.ap += int((p.ap_max - p.ap) * .1)
+        print("Restoring some AP")
+        # p.ap = p.ap + int((p.ap_max - p.ap) * .1)
+        p.ap += 1
+
 
 
 entrance_message = "Where you be? Oh you begin at the [E]ntrance " \
@@ -117,7 +128,6 @@ while p.health > 0 and p.oxygen > 0:
             m.get_coords().get("M").remove(m.get_coords().get("P"))
             # remove mob after defeat
             check_level_up()
-        continue
     else:
         restore_ap()
     print(p.display())
